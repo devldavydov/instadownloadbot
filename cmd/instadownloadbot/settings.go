@@ -42,6 +42,6 @@ func LoadConfig(flagSet flag.FlagSet, flags []string) (*Config, error) {
 	return config, nil
 }
 
-func ServiceSettingsAdapt(config *Config) (*bot.ServiceSettings, error) {
-	return bot.NewServiceSettings(config.Token, config.PollTimeOut)
+func ServiceSettingsAdapt(config *Config, buildCommit string) (*bot.ServiceSettings, error) {
+	return bot.NewServiceSettings(config.Token, config.PollTimeOut, buildCommit)
 }

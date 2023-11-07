@@ -2,8 +2,6 @@ package instadownloadbot
 
 import (
 	"context"
-	"fmt"
-	"time"
 
 	tele "gopkg.in/telebot.v3"
 )
@@ -27,10 +25,7 @@ func (s *Service) Run(ctx context.Context) error {
 		return err
 	}
 
-	b.Handle("/start", func(c tele.Context) error {
-		return c.Send(fmt.Sprintf("Hello! Current unix time: %d", time.Now().Unix()))
-	})
-
+	s.setupRouting(b)
 	go b.Start()
 
 	select {
@@ -39,4 +34,9 @@ func (s *Service) Run(ctx context.Context) error {
 	}
 
 	return nil
+}
+
+func (s *Service) setupRouting(b *tele.Bot) {
+	b.Handle("/start", s.onStart)
+	b.Handle(tele.OnText, s.onText)
 }

@@ -29,7 +29,7 @@ func run() error {
 		return fmt.Errorf("failed to load configuration settings: %w", err)
 	}
 
-	serviceSettings, err := ServiceSettingsAdapt(config)
+	serviceSettings, err := ServiceSettingsAdapt(config, buildCommit)
 	if err != nil {
 		return fmt.Errorf("failed to create bot service settings: %w", err)
 	}
