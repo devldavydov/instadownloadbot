@@ -31,7 +31,12 @@ func (s *Service) Run(ctx context.Context) error {
 		return c.Send(fmt.Sprintf("Hello! Current unix time: %d", time.Now().Unix()))
 	})
 
-	b.Start()
+	go b.Start()
+
+	select {
+	case <-ctx.Done():
+		b.Stop()
+	}
 
 	return nil
 }
